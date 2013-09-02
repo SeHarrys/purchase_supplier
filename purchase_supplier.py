@@ -22,7 +22,6 @@
 from osv import fields
 from osv import osv
 
-
 class product_product(osv.osv):
 	_name = 'product.product'
 	_inherit = 'product.product'
@@ -44,6 +43,7 @@ class product_product(osv.osv):
 					'WHERE ps.name = %s ' \
 					'AND ps.product_code = %s ' \
 					'AND t.purchase_ok = True ' \
+					'AND p.active = True ' \
 					'ORDER BY p.id',
 					(context['partner_id'],name))
 			res = cr.fetchall()
@@ -58,6 +58,7 @@ class product_product(osv.osv):
 					'WHERE ps.name = %s ' \
 					'AND ps.product_name = %s ' \
 					'AND t.purchase_ok = True ' \
+                                        'AND p.active = True ' \					      
 					'ORDER BY p.id',
 					(context['partner_id'],name ))
 				res = cr.fetchall()
@@ -72,6 +73,7 @@ class product_product(osv.osv):
 					'WHERE ps.name = %s ' \
 					'AND p.ean13 = %s ' \
 					'AND t.purchase_ok = True ' \
+				        'AND p.active = True ' \
 					'ORDER BY p.id',
 					(context['partner_id'],name ))
 				res = cr.fetchall()
@@ -88,6 +90,7 @@ class product_product(osv.osv):
 					'WHERE ps.name = %s ' \
 					'AND ps.product_code '+operator+' %s ' \
 					'AND t.purchase_ok = True ' \
+					'AND p.active = True ' \
 					'ORDER BY p.id',
 					(context['partner_id'],name ))
 				res = cr.fetchall()
@@ -102,6 +105,7 @@ class product_product(osv.osv):
 					'WHERE ps.name = %s ' \
 					'AND ps.product_name '+operator+' %s ' \
 					'AND t.purchase_ok = True ' \
+					'AND p.active = True ' \
 					'ORDER BY p.id',
 					(context['partner_id'],name ))
 				res = cr.fetchall()
@@ -118,6 +122,7 @@ class product_product(osv.osv):
 					'WHERE ps.name = %s ' \
 					'AND p.default_code '+operator+' %s ' \
 					'AND t.purchase_ok = True ' \
+					'AND p.active = True ' \
 					'ORDER BY p.id',
 					(context['partner_id'],name ))
 				res = cr.fetchall()
@@ -132,6 +137,7 @@ class product_product(osv.osv):
 					'WHERE ps.name = %s ' \
 					'AND t.name '+operator+' %s ' \
 					'AND t.purchase_ok = True ' \
+					'AND p.active = True ' \
 					'ORDER BY p.id',
 					(context['partner_id'],name ))
 				res = cr.fetchall()
