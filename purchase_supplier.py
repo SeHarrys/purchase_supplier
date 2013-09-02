@@ -58,7 +58,7 @@ class product_product(osv.osv):
 					'WHERE ps.name = %s ' \
 					'AND ps.product_name = %s ' \
 					'AND t.purchase_ok = True ' \
-                                        'AND p.active = True ' \					      
+                                        'AND p.active = True ' \
 					'ORDER BY p.id',
 					(context['partner_id'],name ))
 				res = cr.fetchall()
