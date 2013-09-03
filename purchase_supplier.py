@@ -26,7 +26,7 @@ class product_product(osv.osv):
 	_name = 'product.product'
 	_inherit = 'product.product'
 	
-	def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
+	def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=24):
 		ids=[]
 		if not args:
 			args=[]
@@ -35,7 +35,7 @@ class product_product(osv.osv):
 		if context and context.has_key('partner_id') and context['partner_id']:
 			# Warn: ps.name is the pk of the partner in the product_supplierinfo model
 			expr_name = '%' + name + '%'
-			cr.execute('SELECT DISTINCT p.id FROM product_product AS p ' \
+			cr.execute('SELECT p.id FROM product_product AS p ' \
 				   'INNER JOIN product_template AS t ON p.product_tmpl_id=t.id ' \
 				   'INNER JOIN product_supplierinfo AS ps ON ps.product_id=t.id ' \
 				   'WHERE ps.name = %s AND t.purchase_ok = True AND p.active = True ' \
