@@ -35,7 +35,14 @@ class product_product(osv.osv):
 		if context and context.has_key('partner_id') and context['partner_id']:
 			# Warn: ps.name is the pk of the partner in the product_supplierinfo model
 			expr_name = '%' + name + '%'
-			cr.execute('SELECT DISTINCT p.id FROM product_product AS p INNER JOIN product_template AS t ON p.product_tmpl_id=t.id INNER JOIN product_supplierinfo AS ps ON ps.product_id=t.id WHERE ps.name = %s AND t.purchase_ok = True AND p.active = True AND (( ps.product_code = %s) OR ( ps.product_name = %s) OR ( ps.product_code ILIKE %s) OR ( ps.product_name ILIKE %s) OR (p.default_code ILIKE %s) OR ( t.name ILIKE %s ) OR ( p.ean13 = %s) ) ORDER BY p.id',(context['partner_id'],name,name,expr_name,expr_name,expr_name,expr_name,name))
+			cr.execute('SELECT DISTINCT p.id FROM product_product AS p ' \
+				   'INNER JOIN product_template AS t ON p.product_tmpl_id=t.id ' \
+				   'INNER JOIN product_supplierinfo AS ps ON ps.product_id=t.id ' \
+				   'WHERE ps.name = %s AND t.purchase_ok = True AND p.active = True ' \
+				   'AND (( ps.product_code = %s) OR ( ps.product_name = %s) OR ( ps.product_code ILIKE %s) ' \
+				   'OR ( ps.product_name ILIKE %s) OR (p.default_code ILIKE %s) ' \
+				   'OR ( t.name ILIKE %s ) OR ( p.ean13 = %s) ) ORDER BY p.id',
+				   (context['partner_id'],name,name,expr_name,expr_name,expr_name,expr_name,name))
                         res = cr.fetchall()
                         ids = map(lambda x:x[0], res)
 		if isinstance(ids, set):
